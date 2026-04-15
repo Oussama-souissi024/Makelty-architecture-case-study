@@ -657,9 +657,9 @@ Detailed breakdowns are available (or planned) in the `/docs` directory:
 
 | Photo | Name | Role |
 |-------|------|------|
-| <img src="oussama.jpg" width="80" style="border-radius: 50%;"> | [**Oussama Souissi**](https://www.linkedin.com/in/oussama-souissi-289844ba) | CEO & Co-Founder |
-| <img src="hamdi.png" width="80" style="border-radius: 50%;"> | [**Hamdi Jouini**](https://www.linkedin.com/in/hamdi-jouini-7aa47828b/) | CTO & Co-Founder |
-| <img src="ichrak.jpg" width="80" style="border-radius: 50%;"> | [**Ichrak Haddad**](https://www.linkedin.com/in/haddad-ichrak/) | Nutritionist & Co-Founder |
+| <img src="oussama.jpg" width="80" style="border-radius: 50%;"> | [**Oussama Souissi**](https://www.linkedin.com/in/oussama-souissi-289844ba) | CTO & Co-Founder |
+| <img src="hamdi.png" width="80" style="border-radius: 50%;"> | [**Hamdi Jouini**](https://www.linkedin.com/in/hamdi-jouini-7aa47828b/) | CEO & Co-Founder |
+| <img src="ichrak.jpg" width="80" style="border-radius: 50%;"> | [**Ichrak Haddad**](https://www.linkedin.com/in/haddad-ichrak/) | Nutritionist - Dietitian & Co-Founder |
 
 ---
 
