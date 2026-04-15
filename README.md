@@ -1,230 +1,234 @@
+<p align="right">
+  <a href="README.en.md">🇬🇧 English</a> | <strong>🇫🇷 Français</strong>
+</p>
+
 <p align="center">
   <h1 align="center">Makelty</h1>
   <p align="center">
-    <strong>The operating system for high-performance nutrition coaching.</strong>
+    <strong>Le système d'exploitation du coaching nutritionnel haute performance.</strong>
   </p>
   <p align="center">
-    A production-grade FoodTech SaaS platform — built as a TypeScript monorepo — serving nutritionists and their clients across mobile and web.
+    Une plateforme FoodTech SaaS en production — construite en monorepo TypeScript — au service des nutritionnistes et de leurs clients sur mobile et web.
   </p>
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/status-production-brightgreen?style=flat-square" alt="Status" />
-  <img src="https://img.shields.io/badge/platform-iOS%20%7C%20Android%20%7C%20Web-blue?style=flat-square" alt="Platforms" />
+  <img src="https://img.shields.io/badge/statut-production-brightgreen?style=flat-square" alt="Statut" />
+  <img src="https://img.shields.io/badge/plateformes-iOS%20%7C%20Android%20%7C%20Web-blue?style=flat-square" alt="Plateformes" />
   <img src="https://img.shields.io/badge/architecture-monorepo-orange?style=flat-square" alt="Architecture" />
-  <img src="https://img.shields.io/badge/AI-RAG%20%2B%20Embeddings%20%2B%20Voice-purple?style=flat-square" alt="AI" />
-  <img src="https://img.shields.io/badge/license-proprietary-lightgrey?style=flat-square" alt="License" />
+  <img src="https://img.shields.io/badge/IA-RAG%20%2B%20Embeddings%20%2B%20Voix-purple?style=flat-square" alt="IA" />
+  <img src="https://img.shields.io/badge/licence-propriétaire-lightgrey?style=flat-square" alt="Licence" />
 </p>
 
 ---
 
-## Table of Contents
+## Table des matières
 
-- [Overview](#overview)
-- [Product Context](#product-context)
-- [Why This Repository Exists](#why-this-repository-exists)
-- [Production Context](#production-context)
-- [Core Platform Components](#core-platform-components)
-  - [Mobile App (B2C)](#mobile-app-b2c)
-  - [Web Dashboard (B2B)](#web-dashboard-b2b)
-  - [AI Layer](#ai-layer)
-- [Technical Stack](#technical-stack)
-- [Architecture Highlights](#architecture-highlights)
-- [High-Level Architecture](#high-level-architecture)
-- [Key Features](#key-features)
-- [Engineering Highlights](#engineering-highlights)
-- [AI Capabilities](#ai-capabilities)
-- [Architecture Notes](#architecture-notes)
-- [Repository Scope](#repository-scope)
-- [Screenshots & Visuals](#screenshots--visuals)
-- [Next Documentation Files](#next-documentation-files)
-- [Public Links](#public-links)
-- [Team](#team)
-- [Disclaimer](#disclaimer)
-
----
-
-## Overview
-
-**Makelty** is a Tunisian FoodTech startup building a unified coaching platform for the nutrition and fitness industry. The system connects two user bases through a single, coherent technical ecosystem:
-
-- **Coaches and nutritionists** (B2B) manage clients, design precise macro-nutrient plans, track adherence, communicate in real time, and handle billing — all from a professional web dashboard.
-- **End users** (B2C) track meals, log weight and hydration, interact with AI-powered nutrition assistants, and follow their personalized plans — all from a mobile app designed to work flawlessly offline.
-
-The product is not a prototype. It is a **production system** handling real users, real nutrition data, and real coaching workflows. The codebase exceeds **250,000 lines of TypeScript** across three applications, three shared packages, and a serverless backend — all managed within a single monorepo.
+- [Vue d'ensemble](#vue-densemble)
+- [Contexte produit](#contexte-produit)
+- [Pourquoi ce dépôt existe](#pourquoi-ce-dépôt-existe)
+- [Contexte de production](#contexte-de-production)
+- [Composants principaux de la plateforme](#composants-principaux-de-la-plateforme)
+  - [Application Mobile (B2C)](#application-mobile-b2c)
+  - [Dashboard Coach (B2B)](#dashboard-coach-b2b)
+  - [Couche IA](#couche-ia)
+- [Stack technique](#stack-technique)
+- [Points forts de l'architecture](#points-forts-de-larchitecture)
+- [Architecture générale](#architecture-générale)
+- [Fonctionnalités clés](#fonctionnalités-clés)
+- [Points forts d'ingénierie](#points-forts-dingénierie)
+- [Capacités IA](#capacités-ia)
+- [Notes d'architecture](#notes-darchitecture)
+- [Périmètre du dépôt](#périmètre-du-dépôt)
+- [Captures d'écran](#captures-décran)
+- [Documentation complémentaire](#documentation-complémentaire)
+- [Liens publics](#liens-publics)
+- [Équipe](#équipe)
+- [Avertissement](#avertissement)
 
 ---
 
-## Product Context
+## Vue d'ensemble
 
-### The Problem
+**Makelty** est une startup FoodTech tunisienne qui construit une plateforme de coaching unifiée pour l'industrie de la nutrition et du fitness. Le système connecte deux bases d'utilisateurs à travers un écosystème technique unique et cohérent :
 
-Independent nutrition coaches and fitness professionals operate with fragmented tooling:
+- **Les coachs et nutritionnistes** (B2B) gèrent leurs clients, conçoivent des plans macro-nutritionnels précis, suivent l'adhérence, communiquent en temps réel et gèrent la facturation — le tout depuis un dashboard web professionnel.
+- **Les utilisateurs finaux** (B2C) suivent leurs repas, enregistrent leur poids et leur hydratation, interagissent avec des assistants IA nutritionnels et suivent leurs plans personnalisés — le tout depuis une application mobile conçue pour fonctionner parfaitement hors ligne.
 
-| Task | Typical Tool |
-|------|-------------|
-| Client communication | WhatsApp |
-| Nutrition plans | Excel / PDF |
-| Payment tracking | Bank transfers, manual notes |
-| Progress monitoring | Scattered spreadsheets |
+Le produit n'est pas un prototype. C'est un **système en production** qui gère de vrais utilisateurs, de vraies données nutritionnelles et de vrais workflows de coaching. Le codebase dépasse les **250 000 lignes de TypeScript** réparties sur trois applications, trois packages partagés et un backend serverless — le tout géré dans un seul monorepo.
 
-This fragmentation caps a coach's capacity at roughly 20–30 clients before administrative burden causes quality degradation or burnout.
+---
 
-### The Solution
+## Contexte produit
 
-Makelty consolidates the entire coaching workflow into a single platform with sub-100ms real-time synchronization between the coach's web dashboard and each client's mobile app. The goal is operational leverage: enable a coach to manage **200+ clients** while focusing on coaching quality rather than logistics.
+### Le problème
 
-### Target Users
+Les coachs en nutrition et les professionnels du fitness indépendants opèrent avec des outils fragmentés :
+
+| Tâche | Outil typique |
+|-------|--------------|
+| Communication client | WhatsApp |
+| Plans nutritionnels | Excel / PDF |
+| Suivi des paiements | Virements bancaires, notes manuelles |
+| Suivi de la progression | Tableurs dispersés |
+
+Cette fragmentation limite la capacité d'un coach à environ 20–30 clients avant que la charge administrative ne dégrade la qualité ou ne provoque un burn-out.
+
+### La solution
+
+Makelty consolide l'ensemble du workflow de coaching en une seule plateforme avec une synchronisation temps réel inférieure à 100ms entre le dashboard web du coach et l'application mobile de chaque client. L'objectif est de créer un levier opérationnel : permettre à un coach de gérer **200+ clients** en se concentrant sur la qualité du coaching plutôt que sur la logistique.
+
+### Utilisateurs cibles
 
 | Segment | Interface | Description |
 |---------|-----------|-------------|
-| **Nutrition coaches** | Web Dashboard | Full CRM, plan builder, messaging, billing |
-| **Fitness professionals** | Web Dashboard | Client tracking, program management |
-| **End users / clients** | Mobile App | Daily tracking, AI assistant, offline-first experience |
+| **Coachs en nutrition** | Dashboard Web | CRM complet, constructeur de plans, messagerie, facturation |
+| **Professionnels du fitness** | Dashboard Web | Suivi des clients, gestion des programmes |
+| **Utilisateurs finaux / clients** | Application Mobile | Suivi quotidien, assistant IA, expérience offline-first |
 
 ---
 
-## Why This Repository Exists
+## Pourquoi ce dépôt existe
 
-The full Makelty source code is **private** and will remain so. This repository serves as:
+Le code source complet de Makelty est **privé** et le restera. Ce dépôt a pour vocation de servir :
 
-1. **An architecture case study** — documenting the engineering decisions, system design, and technical trade-offs behind a production FoodTech platform.
-2. **A technical portfolio piece** — demonstrating proficiency in monorepo architecture, offline-first mobile engineering, real-time systems, AI/RAG pipelines, and full-stack TypeScript.
-3. **A reference for the community** — providing concrete examples of patterns like shared service layers, offline synchronization engines, and multi-platform code sharing.
+1. **D'étude de cas architecturale** — documentant les décisions d'ingénierie, la conception système et les compromis techniques derrière une plateforme FoodTech en production.
+2. **De pièce de portfolio technique** — démontrant la maîtrise de l'architecture monorepo, de l'ingénierie mobile offline-first, des systèmes temps réel, des pipelines IA/RAG et du TypeScript full-stack.
+3. **De référence pour la communauté** — offrant des exemples concrets de patterns comme les couches de services partagées, les moteurs de synchronisation offline et le partage de code multi-plateforme.
 
-No proprietary source code, API keys, database schemas, or business-sensitive logic is exposed in this repository.
+Aucun code source propriétaire, clé API, schéma de base de données ou logique métier sensible n'est exposé dans ce dépôt.
 
 ---
 
-## Production Context
+## Contexte de production
 
-| Aspect | Detail |
+| Aspect | Détail |
 |--------|--------|
-| **Status** | Live in production (v2.0.0) |
-| **Mobile availability** | Previously published on Google Play Store under the name "Lift & Eat" |
-| **Dashboard domain** | `dashboard.makelty.tn` |
-| **Backend** | Convex Cloud (serverless, zero-downtime deployments) |
-| **Web hosting** | Docker containers on VPS with Nginx reverse proxy |
-| **Mobile builds** | Expo Application Services (EAS) — cloud-compiled native binaries |
-| **Localization** | French, English, Arabic (with full RTL support) |
-| **Currency** | TND (Tunisian Dinar) — local payment methods supported |
+| **Statut** | En production (v2.0.0) |
+| **Disponibilité mobile** | Précédemment publié sur le Google Play Store sous le nom « Lift & Eat » |
+| **Domaine du dashboard** | `dashboard.makelty.tn` |
+| **Backend** | Convex Cloud (serverless, déploiements sans interruption) |
+| **Hébergement web** | Conteneurs Docker sur VPS avec reverse proxy Nginx |
+| **Builds mobile** | Expo Application Services (EAS) — binaires natifs compilés dans le cloud |
+| **Localisation** | Français, Anglais, Arabe (avec support RTL complet) |
+| **Devise** | TND (Dinar Tunisien) — méthodes de paiement locales supportées |
 
 ---
 
-## Core Platform Components
+## Composants principaux de la plateforme
 
-### Mobile App (B2C)
+### Application Mobile (B2C)
 
-The client-facing mobile application is a **React Native** app built with **Expo SDK 53**, designed around an **offline-first** architecture where the local SQLite database is the immediate source of truth for the UI.
+L'application mobile destinée aux clients est une application **React Native** construite avec **Expo SDK 53**, conçue autour d'une architecture **offline-first** où la base de données SQLite locale est la source de vérité immédiate pour l'interface utilisateur.
 
-**Key characteristics:**
+**Caractéristiques clés :**
 
-- **Zero-latency interactions** — All reads and writes hit local SQLite first. The UI updates in under 1ms with no loading spinners during normal operations.
-- **Background synchronization** — A proprietary sync engine queues mutations in AsyncStorage and replays them against the Convex backend when connectivity is available. Idempotency keys (`clientId` UUIDs) prevent duplicate writes on retry.
-- **7-step onboarding** — Guided flow collecting biometric data (gender, height, weight, activity level, goals) to calculate personalized TDEE and macro targets using the Mifflin-St Jeor equation.
-- **Barcode scanning** — Camera-based product scanning integrated with OpenFoodFacts for instant nutritional lookups.
-- **Gamification** — Streak tracking, achievement badges, and community plan sharing to drive engagement.
-- **Trilingual** — Full i18n support for French, English, and Arabic interfaces.
+- **Interactions sans latence** — Toutes les lectures et écritures passent d'abord par SQLite local. L'interface se met à jour en moins d'1ms sans aucun indicateur de chargement lors des opérations courantes.
+- **Synchronisation en arrière-plan** — Un moteur de synchronisation propriétaire met en file d'attente les mutations dans AsyncStorage et les rejoue vers le backend Convex lorsque la connectivité est disponible. Des clés d'idempotence (`clientId` UUID) empêchent les écritures en double lors des tentatives de renvoi.
+- **Onboarding en 7 étapes** — Parcours guidé collectant les données biométriques (genre, taille, poids, niveau d'activité, objectifs) pour calculer le TDEE et les cibles macro personnalisées via l'équation de Mifflin-St Jeor.
+- **Scanner de codes-barres** — Scan de produits par caméra intégré avec OpenFoodFacts pour une consultation nutritionnelle instantanée.
+- **Gamification** — Suivi des séries (streaks), badges de réussite et partage communautaire de plans pour stimuler l'engagement.
+- **Trilingue** — Support i18n complet pour les interfaces en Français, Anglais et Arabe.
 
-### Web Dashboard (B2B)
+### Dashboard Coach (B2B)
 
-The coach-facing dashboard is a **Next.js 16** application using the App Router, built with **shadcn/ui** and **TailwindCSS** for a premium, accessible design system.
+Le dashboard destiné aux coachs est une application **Next.js 16** utilisant l'App Router, construite avec **shadcn/ui** et **TailwindCSS** pour un design system premium et accessible.
 
-**Key characteristics:**
+**Caractéristiques clés :**
 
-- **360° Client CRM** — Client profiles with weight progression, hydration logs, meal adherence rates, activity timelines, and tagging.
-- **Nutrition Plan Builder** — Multi-step wizard for creating macro-precise nutrition plans. Supports plan templates for reuse across clients.
-- **Certified ingredient database** — 160+ INNTA-certified (Tunisian National Institute of Nutrition) ingredients with locked nutritional values. 300+ traditional Tunisian and Mediterranean meals.
-- **Real-time messaging** — WebSocket-powered chat with read receipts, typing indicators, file attachments, and quick-reply templates.
-- **Financial management** — Invoice generation, payment tracking (Cash, Bank Transfer, Flouci — Tunisia's mobile payment), revenue analytics, and PDF export.
-- **Consultation calendar** — Availability scheduling and appointment management.
-- **Super Admin panel** — Platform-wide user management, activation code generation, content moderation, analytics, and system configuration.
+- **CRM Client 360°** — Profils clients avec progression pondérale, journaux d'hydratation, taux d'adhérence aux repas, chronologies d'activité et système de tags.
+- **Constructeur de plans nutritionnels** — Assistant multi-étapes pour créer des plans nutritionnels au macronutriment près. Supporte les templates de plans pour la réutilisation entre clients.
+- **Base d'ingrédients certifiée** — 160+ ingrédients certifiés INNTA (Institut National de Nutrition et de Technologie Alimentaire de Tunisie) avec des valeurs nutritionnelles verrouillées. 300+ repas traditionnels tunisiens et méditerranéens.
+- **Messagerie temps réel** — Chat alimenté par WebSocket avec accusés de réception, indicateurs de frappe, pièces jointes et modèles de réponses rapides.
+- **Gestion financière** — Génération de factures, suivi des paiements (Espèces, Virement bancaire, Flouci — paiement mobile tunisien), analytique des revenus et export PDF.
+- **Calendrier de consultations** — Planification des disponibilités et gestion des rendez-vous.
+- **Panel Super Admin** — Gestion des utilisateurs à l'échelle de la plateforme, génération de codes d'activation, modération de contenu, analytique et configuration système.
 
-### AI Layer
+### Couche IA
 
-Makelty integrates two specialized AI agents focused exclusively on nutrition:
+Makelty intègre deux agents IA spécialisés exclusivement en nutrition :
 
-1. **Conversational Nutrition Assistant** — A RAG-powered chatbot available on both mobile and dashboard, backed by DeepSeek LLM with contextual awareness of the user's active plan, daily intake, weight history, and favorites.
-2. **Voice Food Logging Agent** — An end-to-end vocal pipeline (Audio → STT → Structured Extraction → Database Matching → Logging) optimized for Tunisian Arabic dialect recognition.
+1. **Assistant nutritionnel conversationnel** — Un chatbot alimenté par RAG disponible sur mobile et dashboard, propulsé par DeepSeek LLM avec une conscience contextuelle du plan actif de l'utilisateur, de son apport quotidien, de son historique de poids et de ses favoris.
+2. **Agent de logging alimentaire vocal** — Un pipeline vocal complet (Audio → STT → Extraction structurée → Correspondance en base → Enregistrement) optimisé pour la reconnaissance du dialecte arabe tunisien.
 
-Both agents operate within strict token quotas, prompt injection protection, and Zod-validated output schemas. More details in [AI Capabilities](#ai-capabilities).
+Les deux agents opèrent dans le cadre de quotas de tokens stricts, de protections contre l'injection de prompts et de schémas de sortie validés par Zod. Plus de détails dans [Capacités IA](#capacités-ia).
 
 ---
 
-## Technical Stack
+## Stack technique
 
-| Domain | Technologies |
-|--------|-------------|
+| Domaine | Technologies |
+|---------|-------------|
 | **Monorepo** | Turborepo, pnpm workspaces |
 | **Mobile** | React Native 0.79, Expo SDK 53, Expo Router, NativeWind v4 |
-| **Mobile Local DB** | SQLite (`expo-sqlite`), Drizzle ORM |
-| **Mobile State** | Zustand, TanStack Query v5 (with persistence) |
+| **BDD locale mobile** | SQLite (`expo-sqlite`), Drizzle ORM |
+| **État mobile** | Zustand, TanStack Query v5 (avec persistance) |
 | **Dashboard** | Next.js 16, React 19, App Router |
-| **Dashboard UI** | shadcn/ui, Radix UI, TailwindCSS v4, Recharts |
-| **Landing Page** | Next.js 16, TailwindCSS v4, GSAP, Framer Motion, next-intl |
-| **Backend & Database** | Convex (serverless TypeScript backend with real-time subscriptions) |
-| **Authentication** | Clerk (JWT + OIDC, custom claims for RBAC) |
-| **AI — LLM** | DeepSeek (`deepseek-chat`) |
-| **AI — Embeddings** | Together AI (`multilingual-e5-large-instruct`, 1024-dim) |
-| **AI — STT** | Together AI (`openai/whisper-large-v3`) |
-| **Media** | Cloudinary (edge delivery, transformations) |
-| **Deployment** | Docker, Nginx, Vercel, Expo EAS |
+| **UI Dashboard** | shadcn/ui, Radix UI, TailwindCSS v4, Recharts |
+| **Page vitrine** | Next.js 16, TailwindCSS v4, GSAP, Framer Motion, next-intl |
+| **Backend & Base de données** | Convex (backend TypeScript serverless avec souscriptions temps réel) |
+| **Authentification** | Clerk (JWT + OIDC, custom claims pour RBAC) |
+| **IA — LLM** | DeepSeek (`deepseek-chat`) |
+| **IA — Embeddings** | Together AI (`multilingual-e5-large-instruct`, 1024 dimensions) |
+| **IA — STT** | Together AI (`openai/whisper-large-v3`) |
+| **Médias** | Cloudinary (distribution edge, transformations) |
+| **Déploiement** | Docker, Nginx, Vercel, Expo EAS |
 
 ---
 
-## Architecture Highlights
+## Points forts de l'architecture
 
-### 1. Monorepo with Shared Core
+### 1. Monorepo avec noyau partagé
 
-The project is structured as a **Turborepo monorepo** with strict boundaries:
+Le projet est structuré en **monorepo Turborepo** avec des frontières strictes :
 
 ```text
 lift-and-eat/
 ├── apps/
-│   ├── mobile/          →  React Native (Expo SDK 53) — Client App
-│   ├── dashboard/       →  Next.js 16 (App Router) — Coach Dashboard
-│   └── landing/         →  Next.js 16 — Public Marketing Site
+│   ├── mobile/          →  React Native (Expo SDK 53) — App Client
+│   ├── dashboard/       →  Next.js 16 (App Router) — Dashboard Coach
+│   └── landing/         →  Next.js 16 — Site Vitrine Public
 │
 └── packages/
-    ├── shared/          →  Universal Business Logic & Types (pure TS)
-    ├── convex/          →  Serverless Backend & Database
-    └── ui/              →  Shared Design System (shadcn/ui, Radix)
+    ├── shared/          →  Logique Métier Universelle & Types (TS pur)
+    ├── convex/          →  Backend Serverless & Base de Données
+    └── ui/              →  Design System Partagé (shadcn/ui, Radix)
 ```
 
-### 2. The "Shared Core" Philosophy
+### 2. La philosophie du « noyau partagé »
 
-The architectural cornerstone: **neither the Mobile app nor the Dashboard implement business logic**. 100% of nutritional calculations, plan validation, macro distribution, and data transformations live in `packages/shared` as pure TypeScript functions — no framework imports, no side effects.
+La pierre angulaire architecturale : **ni l'application Mobile ni le Dashboard n'implémentent de logique métier**. 100% des calculs nutritionnels, de la validation des plans, de la distribution des macros et des transformations de données résident dans `packages/shared` sous forme de fonctions TypeScript pures — aucun import de framework, aucun effet de bord.
 
-> A bug fixed in the shared package is instantly resolved across iOS, Android, and Web simultaneously.
+> Un bug corrigé dans le package partagé est instantanément résolu sur iOS, Android et Web simultanément.
 
-### 3. Service Layer Pattern
+### 3. Pattern de couche de services
 
-UI components never query the database directly. They invoke platform-specific service wrappers that delegate to the shared core:
+Les composants UI n'interrogent jamais la base de données directement. Ils invoquent des wrappers de services spécifiques à la plateforme qui délèguent au noyau partagé :
 
-- **Dashboard services** → Validate via shared core → Execute Convex mutations
-- **Mobile services** → Validate via shared core → Write to local SQLite → Queue sync task
+- **Services Dashboard** → Validation via le noyau partagé → Exécution des mutations Convex
+- **Services Mobile** → Validation via le noyau partagé → Écriture en SQLite local → Mise en file de synchronisation
 
 ```mermaid
 flowchart LR
-    subgraph UI["UI Layer"]
-        DashUI["Dashboard\nReact Component"]
-        MobUI["Mobile\nReact Native Component"]
+    subgraph UI["Couche UI"]
+        DashUI["Dashboard\nComposant React"]
+        MobUI["Mobile\nComposant React Native"]
     end
 
-    subgraph Adapters["Platform Services (Adapters)"]
-        DashSvc["Dashboard Service\n(Convex mutations)"]
-        MobSvc["Mobile Service\n(SQLite + Sync Queue)"]
+    subgraph Adapters["Services Plateforme (Adaptateurs)"]
+        DashSvc["Service Dashboard\n(mutations Convex)"]
+        MobSvc["Service Mobile\n(SQLite + File de sync)"]
     end
 
-    subgraph Core["@lift-eat/shared (Pure TS)"]
+    subgraph Core["@lift-eat/shared (TS Pur)"]
         NCS["NutritionCoreService"]
         PCS["PlanCoreService"]
         ICS["IngredientCoreService"]
     end
 
-    subgraph Storage["Data Layer"]
+    subgraph Storage["Couche Données"]
         ConvexDB[("Convex Cloud")]
-        SQLiteDB[("Local SQLite")]
+        SQLiteDB[("SQLite Local")]
     end
 
     DashUI --> DashSvc
@@ -235,72 +239,72 @@ flowchart LR
 
     DashSvc --> ConvexDB
     MobSvc --> SQLiteDB
-    SQLiteDB -.->|"background sync"| ConvexDB
+    SQLiteDB -.->|"sync en arrière-plan"| ConvexDB
 ```
 
-### 4. Offline-First Mobile Engine
+### 4. Moteur mobile offline-first
 
-The mobile app uses a **Model Context Protocol (MCP)** inspired layer — `SQLiteMCPServer` — as a monolithic local API. Components call domain-specific handlers that write to SQLite via Drizzle ORM. A background sync engine processes a queue of pending mutations when connectivity is restored, using idempotency keys to prevent duplicates.
+L'application mobile utilise une couche inspirée du **Model Context Protocol (MCP)** — `SQLiteMCPServer` — comme API locale monolithique. Les composants appellent des handlers spécifiques au domaine qui écrivent dans SQLite via Drizzle ORM. Un moteur de synchronisation en arrière-plan traite une file de mutations en attente lorsque la connectivité est rétablie, en utilisant des clés d'idempotence pour éviter les doublons.
 
 ```mermaid
 sequenceDiagram
-    participant User as 👤 User Action
-    participant UI as React Native UI
+    participant User as 👤 Action utilisateur
+    participant UI as UI React Native
     participant MCP as SQLiteMCPServer
-    participant SQLite as 💾 Local SQLite
-    participant Queue as 📋 Sync Queue
-    participant Sync as ⚡ Sync Engine
+    participant SQLite as 💾 SQLite Local
+    participant Queue as 📋 File de sync
+    participant Sync as ⚡ Moteur de sync
     participant Convex as ☁️ Convex Cloud
 
-    User->>UI: Logs a meal
+    User->>UI: Enregistre un repas
     UI->>MCP: handleCreateMeal()
-    MCP->>SQLite: Drizzle ORM INSERT
-    SQLite-->>UI: ✅ Instant UI update (<1ms)
-    MCP->>Queue: Push sync task (AsyncStorage)
+    MCP->>SQLite: INSERT via Drizzle ORM
+    SQLite-->>UI: ✅ Mise à jour UI instantanée (<1ms)
+    MCP->>Queue: Ajouter tâche de sync (AsyncStorage)
 
-    Note over Sync,Convex: When network is available...
+    Note over Sync,Convex: Lorsque le réseau est disponible...
 
-    Sync->>Queue: Pop pending tasks
+    Sync->>Queue: Récupérer les tâches en attente
     Sync->>Convex: mutation(meals.sync) + clientId
-    alt Already exists (duplicate)
-        Convex-->>Sync: 200 OK (idempotent skip)
-    else New entry
-        Convex-->>Sync: 200 OK (inserted)
+    alt Entrée déjà existante (doublon)
+        Convex-->>Sync: 200 OK (ignoré — idempotent)
+    else Nouvelle entrée
+        Convex-->>Sync: 200 OK (inséré)
     end
-    Sync->>Queue: Clear completed task
+    Sync->>Queue: Supprimer la tâche complétée
 ```
 
-### 5. Real-Time Dashboard
+### 5. Dashboard temps réel
 
-The coach dashboard leverages Convex's native WebSocket subscriptions. When a client updates their weight on mobile and the data syncs to the cloud, the coach's dashboard re-renders instantly — no polling, no manual refresh.
+Le dashboard coach exploite les souscriptions WebSocket natives de Convex. Lorsqu'un client met à jour son poids sur mobile et que les données se synchronisent vers le cloud, le dashboard du coach se re-rend instantanément — sans polling, sans rafraîchissement manuel.
 
-### 6. Authentication & RBAC
+### 6. Authentification & RBAC
 
-Clerk handles authentication externally. Roles (`user`, `coach`, `admin`, `superadmin`) are injected into the JWT as custom claims. Convex validates roles in-memory from the JWT — no additional database lookup required — achieving sub-millisecond authorization checks.
+Clerk gère l'authentification en externe. Les rôles (`user`, `coach`, `admin`, `superadmin`) sont injectés dans le JWT via des custom claims. Convex valide les rôles en mémoire depuis le JWT — aucune requête supplémentaire en base de données nécessaire — permettant des vérifications d'autorisation en moins d'une milliseconde.
 
 ```mermaid
 flowchart LR
-    subgraph Client["Client App"]
-        Login["User Login\n(Email / OAuth)"]
+    subgraph Client["Application Client"]
+        Login["Connexion\n(Email / OAuth)"]
     end
 
     subgraph Clerk["🔐 Clerk"]
-        Auth["Authenticate"]
-        JWT["Issue JWT\n+ Custom Claims"]
+        Auth["Authentification"]
+        JWT["Émission JWT\n+ Custom Claims"]
         Meta["publicMetadata\n{role: coach}"]
     end
 
-    subgraph Convex["☁️ Convex Backend"]
-        Verify["Verify JWT\n(OIDC)"]
-        RBAC["Read role from\nJWT claims (<1ms)"]
-        Guard{"Role Check"}
-        Allow["✅ Execute Mutation"]
-        Deny["❌ Unauthorized"]
+    subgraph Convex["☁️ Backend Convex"]
+        Verify["Vérification JWT\n(OIDC)"]
+        RBAC["Lecture du rôle\ndepuis le JWT (<1ms)"]
+        Guard{"Contrôle\ndu rôle"}
+        Allow["✅ Exécuter la mutation"]
+        Deny["❌ Non autorisé"]
     end
 
-    subgraph Webhook["Identity Sync"]
-        Hook["user.created\nWebhook"]
-        Shadow["Shadow Profile\nin users table"]
+    subgraph Webhook["Synchronisation d'identité"]
+        Hook["Webhook\nuser.created"]
+        Shadow["Profil miroir\ndans la table users"]
     end
 
     Login --> Auth
@@ -309,134 +313,134 @@ flowchart LR
     JWT --> Verify
     Verify --> RBAC
     RBAC --> Guard
-    Guard -->|"role ∈ allowed"| Allow
-    Guard -->|"role ∉ allowed"| Deny
+    Guard -->|"rôle ∈ autorisé"| Allow
+    Guard -->|"rôle ∉ autorisé"| Deny
     Auth --> Hook
     Hook -->|"HMAC-SHA256"| Shadow
 ```
 
 ---
 
-## High-Level Architecture
+## Architecture générale
 
 ```mermaid
 flowchart TD
     subgraph Clients
-        Mobile["📱 Mobile App\n(React Native / Expo)"]
-        Dashboard["💻 Coach Dashboard\n(Next.js 16)"]
-        Landing["🌐 Landing Page\n(Next.js 16)"]
+        Mobile["📱 Application Mobile\n(React Native / Expo)"]
+        Dashboard["💻 Dashboard Coach\n(Next.js 16)"]
+        Landing["🌐 Page Vitrine\n(Next.js 16)"]
     end
 
-    subgraph Shared Logic
-        Core["📦 @lift-eat/shared\nPure TypeScript\nNutrition Math • Validation • Types"]
+    subgraph LogiquePartagee["Logique Partagée"]
+        Core["📦 @lift-eat/shared\nTypeScript Pur\nMaths Nutrition • Validation • Types"]
     end
 
     subgraph Backend
-        Convex["☁️ Convex\nServerless DB\nReal-time • ACID • Actions"]
-        Clerk["🔐 Clerk\nAuth & Identity\nJWT • RBAC • OIDC"]
+        Convex["☁️ Convex\nBDD Serverless\nTemps réel • ACID • Actions"]
+        Clerk["🔐 Clerk\nAuth & Identité\nJWT • RBAC • OIDC"]
     end
 
-    subgraph AI Services
+    subgraph ServicesIA["Services IA"]
         DeepSeek["🧠 DeepSeek\nLLM"]
         Together["🔍 Together AI\nEmbeddings • Whisper STT"]
     end
 
-    subgraph Mobile Local
-        SQLite["💾 SQLite\nOffline-First\nSource of Truth"]
+    subgraph MobileLocal["Stockage Local Mobile"]
+        SQLite["💾 SQLite\nOffline-First\nSource de Vérité"]
     end
 
-    Mobile -->|"consumes"| Core
-    Dashboard -->|"consumes"| Core
+    Mobile -->|"consomme"| Core
+    Dashboard -->|"consomme"| Core
 
-    Mobile <-->|"offline-first sync"| SQLite
-    SQLite -.->|"background sync\n(idempotent)"| Convex
-    Dashboard <-->|"real-time\nWebSocket"| Convex
+    Mobile <-->|"sync offline-first"| SQLite
+    SQLite -.->|"sync en arrière-plan\n(idempotent)"| Convex
+    Dashboard <-->|"temps réel\nWebSocket"| Convex
     Landing -->|"waitlist / leads"| Convex
 
-    Convex -->|"JWT validation"| Clerk
-    Mobile -->|"login"| Clerk
-    Dashboard -->|"login"| Clerk
+    Convex -->|"validation JWT"| Clerk
+    Mobile -->|"connexion"| Clerk
+    Dashboard -->|"connexion"| Clerk
 
-    Convex -->|"LLM calls"| DeepSeek
+    Convex -->|"appels LLM"| DeepSeek
     Convex -->|"embeddings\n& STT"| Together
 ```
 
 ---
 
-## Key Features
+## Fonctionnalités clés
 
-### For End Users (Mobile — B2C)
+### Pour les utilisateurs finaux (Mobile — B2C)
 
-- **AI Nutrition Assistant** — Contextual chatbot aware of the user's plan, daily intake, weight trends, and food preferences. Powered by RAG over the platform's food database.
-- **Voice Food Logging** — Dictate meals in Tunisian Arabic, French, or English. The system transcribes, extracts structured food data, matches against the database, and logs macros automatically.
-- **Precision Meal Tracking** — Create custom meals, search a curated database, or scan barcodes (OpenFoodFacts integration). Macros calculated per 100g with dynamic portion adjustment.
-- **Biometric Tracking** — Daily weight, hydration (mL), step count, with historical trends and analytics.
-- **Nutrition Plans** — View and follow coach-assigned or self-created plans with day-by-day, slot-by-slot meal structure (breakfast, lunch, dinner, snack).
-- **Community** — Browse and clone publicly shared plans from other users.
-- **Gamification** — Streaks, achievement badges, and engagement rewards.
-- **Premium Access** — Activation code system for premium features (bootstrapped monetization model).
+- **Assistant IA nutritionnel** — Chatbot contextuel conscient du plan de l'utilisateur, de son apport quotidien, de ses tendances de poids et de ses préférences alimentaires. Alimenté par un RAG sur la base de données alimentaire de la plateforme.
+- **Enregistrement vocal des repas** — Dictez vos repas en arabe tunisien, français ou anglais. Le système transcrit, extrait les données alimentaires structurées, fait la correspondance avec la base de données et enregistre les macros automatiquement.
+- **Suivi de repas de précision** — Créez des repas personnalisés, recherchez dans une base de données curatée ou scannez des codes-barres (intégration OpenFoodFacts). Macros calculées pour 100g avec ajustement dynamique des portions.
+- **Suivi biométrique** — Poids quotidien, hydratation (mL), compteur de pas, avec tendances historiques et analytique.
+- **Plans nutritionnels** — Consultez et suivez les plans assignés par le coach ou auto-créés avec une structure jour par jour, créneau par créneau (petit-déjeuner, déjeuner, dîner, collation).
+- **Communauté** — Parcourez et clonez les plans partagés publiquement par d'autres utilisateurs.
+- **Gamification** — Séries (streaks), badges de réussite et récompenses d'engagement.
+- **Accès Premium** — Système de codes d'activation pour les fonctionnalités premium (modèle de monétisation bootstrappé).
 
-### For Coaches (Dashboard — B2B)
+### Pour les coachs (Dashboard — B2B)
 
-- **Client CRM** — Full lifecycle management with status tracking (active, paused, pending, terminated), tags, notes, and weekly reports.
-- **Nutrition Plan Builder** — Wizard-driven creation with TDEE/BMR auto-calculation, template system for reusability, and direct assignment to clients.
-- **Certified Food Library** — INNTA-certified ingredient database with locked nutritional values. 300+ curated traditional meals.
-- **Real-Time Messaging** — Chat with read receipts, typing indicators, attachments, and quick-reply templates.
-- **Financial Tools** — Invoice management, multi-method payment tracking (Cash, Bank Transfer, Flouci), revenue analytics, and PDF export.
-- **Consultation Calendar** — Availability scheduling and appointment management.
-- **AI Assistant** — Same RAG-powered assistant available to coaches for nutritional research.
+- **CRM Client** — Gestion complète du cycle de vie avec suivi de statut (actif, en pause, en attente, terminé), tags, notes et rapports hebdomadaires.
+- **Constructeur de plans nutritionnels** — Création guidée par assistant avec calcul automatique TDEE/BMR, système de templates pour la réutilisation et assignation directe aux clients.
+- **Bibliothèque alimentaire certifiée** — Base d'ingrédients certifiée INNTA avec valeurs nutritionnelles verrouillées. 300+ repas traditionnels curatés.
+- **Messagerie temps réel** — Chat avec accusés de réception, indicateurs de frappe, pièces jointes et modèles de réponses rapides.
+- **Outils financiers** — Gestion des factures, suivi multi-méthodes de paiement (Espèces, Virement bancaire, Flouci), analytique des revenus et export PDF.
+- **Calendrier de consultations** — Planification des disponibilités et gestion des rendez-vous.
+- **Assistant IA** — Le même assistant alimenté par RAG, disponible pour les coachs pour la recherche nutritionnelle.
 
-### For Platform Operators (Admin Panel)
+### Pour les opérateurs de la plateforme (Panel Admin)
 
-- **User & Coach Management** — Platform-wide visibility with role management.
-- **Activation Code Engine** — Batch generation of license codes for B2B and B2C monetization.
-- **Content Curation** — Global ingredient and meal database management with seed tooling.
-- **Analytics & Moderation** — Event tracking, feedback collection, community moderation.
+- **Gestion des utilisateurs et coachs** — Visibilité à l'échelle de la plateforme avec gestion des rôles.
+- **Moteur de codes d'activation** — Génération en lot de codes de licence pour la monétisation B2B et B2C.
+- **Curation de contenu** — Gestion de la base de données globale d'ingrédients et de repas avec outils de seed.
+- **Analytique & Modération** — Suivi des événements, collecte de feedback, modération communautaire.
 
 ---
 
-## Engineering Highlights
+## Points forts d'ingénierie
 
-### Offline-First as a First-Class Citizen
+### L'offline-first comme citoyen de première classe
 
-The mobile app was designed from day one for environments with unreliable connectivity — gyms, supermarkets, rural areas. The `SQLiteMCPServer` pattern ensures that:
+L'application mobile a été conçue dès le premier jour pour des environnements à connectivité instable — salles de sport, supermarchés, zones rurales. Le pattern `SQLiteMCPServer` garantit que :
 
-- **Reads** never touch the network. 99% of queries (`getDailyPlan`, `getProgress`) resolve against local SQLite.
-- **Writes** are optimistic. The UI reflects changes instantly, and a background queue replays mutations to Convex asynchronously.
-- **Conflict resolution** uses idempotency keys and a hydration service that merges remote state into the local database while respecting pending local writes.
+- **Les lectures** ne touchent jamais le réseau. 99% des requêtes (`getDailyPlan`, `getProgress`) sont résolues contre le SQLite local.
+- **Les écritures** sont optimistes. L'UI reflète les changements instantanément, et une file en arrière-plan rejoue les mutations vers Convex de manière asynchrone.
+- **La résolution de conflits** utilise des clés d'idempotence et un service d'hydratation qui fusionne l'état distant dans la base locale tout en respectant les écritures locales en attente.
 
-### End-to-End Type Safety
+### Typage de bout en bout (End-to-End Type Safety)
 
-From the Convex schema definition (`packages/convex/src/schema.ts`) to the final UI component, every data structure is statically typed. The monorepo's shared package exports TypeScript interfaces consumed by all three applications, eliminating an entire class of runtime errors.
+De la définition du schéma Convex (`packages/convex/src/schema.ts`) jusqu'au composant UI final, chaque structure de données est typée statiquement. Le package partagé du monorepo exporte des interfaces TypeScript consommées par les trois applications, éliminant une classe entière d'erreurs à l'exécution.
 
-### Nutritional Precision
+### Précision nutritionnelle
 
-All nutritional calculations (BMR, TDEE, macro distribution, cooking yield factors, portion normalization) are implemented as **pure functions** in the shared core. The system accounts for:
+Tous les calculs nutritionnels (BMR, TDEE, distribution des macros, facteurs de rendement de cuisson, normalisation des portions) sont implémentés comme des **fonctions pures** dans le noyau partagé. Le système prend en compte :
 
-- Mifflin-St Jeor equation with activity multipliers
-- Goal-specific macro distribution (cutting, bulking, maintenance) with protein set at 2.2g/kg
-- Cooking method adjustments (raw vs. cooked weight, hydration/dehydration factors)
-- Adherence calculation with ±10% tolerance bands
+- L'équation de Mifflin-St Jeor avec multiplicateurs d'activité
+- La distribution des macros spécifique aux objectifs (sèche, prise de masse, maintien) avec protéines fixées à 2.2g/kg
+- Les ajustements de méthode de cuisson (poids cru vs. cuit, facteurs d'hydratation/déshydratation)
+- Le calcul d'adhérence avec des bandes de tolérance de ±10%
 
-### Shared Logic Compliance
+### Conformité de la logique partagée
 
-An internal architecture audit confirmed:
+Un audit d'architecture interne a confirmé :
 
-| Metric | Dashboard | Mobile |
-|--------|-----------|--------|
-| Shared core conformity | **9/10** | **8/10** |
-| Enums from shared | ✅ 100% | ✅ 100% |
-| Constants from shared | ✅ 100% | ✅ 100% (migrated) |
-| Services wrapping shared | ✅ | ✅ (audited, no duplication) |
+| Métrique | Dashboard | Mobile |
+|----------|-----------|--------|
+| Conformité au noyau partagé | **9/10** | **8/10** |
+| Enums depuis shared | ✅ 100% | ✅ 100% |
+| Constantes depuis shared | ✅ 100% | ✅ 100% (migrées) |
+| Services wrappant shared | ✅ | ✅ (audité, aucune duplication) |
 
-### Deployment Pipeline
+### Pipeline de déploiement
 
-| Component | Strategy |
-|-----------|----------|
-| **Convex backend** | Atomic zero-downtime deployment via `npx convex deploy` |
-| **Web apps** | Docker Compose on VPS with Turborepo cache optimization and Nginx routing |
-| **Mobile app** | Expo EAS cloud builds with strict profile separation (dev / preview / production) |
-| **Shared packages** | A change in `packages/shared` cascades to all three deployment targets automatically |
+| Composant | Stratégie |
+|-----------|-----------|
+| **Backend Convex** | Déploiement atomique sans interruption via `npx convex deploy` |
+| **Applications web** | Docker Compose sur VPS avec optimisation du cache Turborepo et routage Nginx |
+| **Application mobile** | Builds cloud Expo EAS avec séparation stricte des profils (dev / preview / production) |
+| **Packages partagés** | Un changement dans `packages/shared` se propage automatiquement aux trois cibles de déploiement |
 
 ```mermaid
 flowchart TD
@@ -448,19 +452,19 @@ flowchart TD
         MobApp["apps/mobile"]
     end
 
-    subgraph Deploy["Deployment Targets"]
-        ConvexCloud["☁️ Convex Cloud\n(Edge Functions + DB)"]
-        VPS["🖥️ VPS (Docker)\nNginx Reverse Proxy"]
-        EAS["📱 Expo EAS\n(Cloud Build)"]
+    subgraph Deploy["Cibles de déploiement"]
+        ConvexCloud["☁️ Convex Cloud\n(Edge Functions + BDD)"]
+        VPS["🖥️ VPS (Docker)\nReverse Proxy Nginx"]
+        EAS["📱 Expo EAS\n(Build Cloud)"]
     end
 
-    subgraph Domains["Live Endpoints"]
+    subgraph Domains["Points d'accès"]
         D1["dashboard.makelty.tn"]
         D2["makelty.tn"]
         D3["Play Store / APK"]
     end
 
-    Shared -->|"imported by all"| ConvexPkg & DashApp & LandApp & MobApp
+    Shared -->|"importé par tous"| ConvexPkg & DashApp & LandApp & MobApp
 
     ConvexPkg -->|"npx convex deploy"| ConvexCloud
     DashApp -->|"docker compose up"| VPS
@@ -473,179 +477,179 @@ flowchart TD
 
 ---
 
-## AI Capabilities
+## Capacités IA
 
-### Conversational RAG Assistant
+### Assistant RAG conversationnel
 
-The AI assistant is not a generic chatbot. Each request flows through a **7-step pipeline**:
+L'assistant IA n'est pas un chatbot générique. Chaque requête passe par un **pipeline en 7 étapes** :
 
-1. **Rate Limiting** — Enforces daily token quotas (50k free / 100k premium)
-2. **Prompt Protection** — Detects and blocks injection patterns
-3. **Intent Classification** — TF-IDF classifier categorizes the request (`meal_request`, `plan_request`, `progress_analysis`, `general`)
-4. **RAG Search** — Vector similarity search (threshold: 0.65) over embedded meals, ingredients, and user memory
-5. **User Context Injection** — Four structured XML blocks: health state, daily journal, long-term memory, favorites/fridge
-6. **LLM Generation** — DeepSeek with temperature 0.7, max 4096 tokens, 30s timeout
-7. **Memory Embedding** — Q&A summary is embedded for long-term user memory
+1. **Limitation de débit** — Applique des quotas de tokens quotidiens (50k gratuit / 100k premium)
+2. **Protection des prompts** — Détecte et bloque les tentatives d'injection
+3. **Classification d'intention** — Un classifieur TF-IDF catégorise la requête (`meal_request`, `plan_request`, `progress_analysis`, `general`)
+4. **Recherche RAG** — Recherche vectorielle par similarité (seuil : 0.65) sur les repas, ingrédients et la mémoire utilisateur
+5. **Injection du contexte utilisateur** — Quatre blocs XML structurés : état de santé, journal quotidien, mémoire long terme, favoris/frigo
+6. **Génération LLM** — DeepSeek avec température 0.7, max 4096 tokens, timeout 30s
+7. **Embedding mémoire** — Le résumé Q&R est vectorisé pour la mémoire long terme de l'utilisateur
 
 ```mermaid
 flowchart TD
-    Msg["💬 User Message"] --> RL{"1. Rate\nLimiting"}
-    RL -->|"quota OK"| PP{"2. Prompt\nProtection"}
-    RL -->|"quota exceeded"| Block["🚫 Quota Error"]
-    PP -->|"safe"| IC["3. Intent Classification\n(TF-IDF)"]
-    PP -->|"injection detected"| Block2["🚫 Blocked"]
+    Msg["💬 Message utilisateur"] --> RL{"1. Limitation\nde débit"}
+    RL -->|"quota OK"| PP{"2. Protection\ndes prompts"}
+    RL -->|"quota dépassé"| Block["🚫 Erreur de quota"]
+    PP -->|"sûr"| IC["3. Classification d'intention\n(TF-IDF)"]
+    PP -->|"injection détectée"| Block2["🚫 Bloqué"]
 
-    IC --> RAG["4. RAG Vector Search\n(similarity ≥ 0.65)"]
-    RAG --> CTX["5. Context Assembly"]
+    IC --> RAG["4. Recherche vectorielle RAG\n(similarité ≥ 0.65)"]
+    RAG --> CTX["5. Assemblage du contexte"]
 
-    subgraph Context["User Context (4 XML blocks)"]
-        H["health_state"]
-        J["daily_journal"]
-        M["long_term_memory"]
-        F["fridge_and_favorites"]
+    subgraph Context["Contexte utilisateur (4 blocs XML)"]
+        H["état_de_santé"]
+        J["journal_quotidien"]
+        M["mémoire_long_terme"]
+        F["frigo_et_favoris"]
     end
 
     CTX --> Context
     Context --> LLM["6. DeepSeek LLM\ntemp=0.7 · max 4096 tokens"]
-    LLM --> Resp["📨 AI Response"]
-    LLM --> Embed["7. Memory Embedding\n(Q&A summary stored)"]
+    LLM --> Resp["📨 Réponse IA"]
+    LLM --> Embed["7. Embedding mémoire\n(résumé Q&R stocké)"]
 ```
 
-### Voice Food Logging Pipeline
+### Pipeline de logging alimentaire vocal
 
-A complete **Audio → Structured Data → Database** pipeline:
+Un pipeline complet **Audio → Données structurées → Base de données** :
 
-1. **STT** — Whisper Large V3 transcription with dialect-optimized prompts for Tunisian Arabic
-2. **Extraction** — LLM extracts foods, quantities, and meal slots into structured JSON
-3. **4-Level Matching** — Direct lookup → Fuzzy match (synonyms, i18n) → Vector search → LLM fallback estimation
-4. **Validation** — Zod schemas ensure output conforms exactly to the database schema before any write
-5. **Logging** — Matched items are logged to the user's daily nutrition journal
+1. **STT** — Transcription Whisper Large V3 avec prompts optimisés pour le dialecte arabe tunisien
+2. **Extraction** — Le LLM extrait les aliments, quantités et créneaux de repas en JSON structuré
+3. **Correspondance à 4 niveaux** — Recherche directe → Correspondance floue (synonymes, i18n) → Recherche vectorielle → Estimation LLM en fallback
+4. **Validation** — Les schémas Zod garantissent que la sortie correspond exactement au schéma de la base de données avant toute écriture
+5. **Enregistrement** — Les éléments identifiés sont enregistrés dans le journal nutritionnel quotidien de l'utilisateur
 
 ```mermaid
 flowchart LR
-    Audio["🎤 Voice Input\n(Tunisian Arabic /\nFrench / English)"] --> STT["Whisper V3\n(Together AI)"]
+    Audio["🎤 Entrée vocale\n(Arabe tunisien /\nFrançais / Anglais)"] --> STT["Whisper V3\n(Together AI)"]
 
-    STT --> Text["Transcribed Text"]
-    Text --> Extract["DeepSeek LLM\nStructured Extraction"]
+    STT --> Text["Texte transcrit"]
+    Text --> Extract["DeepSeek LLM\nExtraction structurée"]
 
-    Extract --> JSON["JSON Output\n{foods, quantities, slots}"]
+    Extract --> JSON["Sortie JSON\n{aliments, quantités, créneaux}"]
 
-    JSON --> Match{"Smart Matching\n(4 levels)"}
+    JSON --> Match{"Correspondance\nintelligente\n(4 niveaux)"}
 
-    Match --> L1["1️⃣ Direct lookup"]
-    Match --> L2["2️⃣ Fuzzy match"]
-    Match --> L3["3️⃣ Vector search"]
-    Match --> L4["4️⃣ LLM fallback"]
+    Match --> L1["1️⃣ Recherche directe"]
+    Match --> L2["2️⃣ Correspondance floue"]
+    Match --> L3["3️⃣ Recherche vectorielle"]
+    Match --> L4["4️⃣ Fallback LLM"]
 
-    L1 & L2 & L3 & L4 --> Zod["Zod Validation"]
-    Zod --> Log["📊 Nutrition Journal\n(macros logged)"]
+    L1 & L2 & L3 & L4 --> Zod["Validation Zod"]
+    Zod --> Log["📊 Journal nutritionnel\n(macros enregistrées)"]
 ```
 
-### Embedding Architecture
+### Architecture des embeddings
 
-| Parameter | Value |
-|-----------|-------|
-| Model | `intfloat/multilingual-e5-large-instruct` |
+| Paramètre | Valeur |
+|-----------|--------|
+| Modèle | `intfloat/multilingual-e5-large-instruct` |
 | Dimensions | 1024 |
-| Storage | Convex vector index (`ai_embeddings` table) |
-| Sources indexed | Meals, ingredients, user conversation memory |
-| Batch support | Yes (single API call for N documents) |
+| Stockage | Index vectoriel Convex (table `ai_embeddings`) |
+| Sources indexées | Repas, ingrédients, mémoire conversationnelle utilisateur |
+| Support batch | Oui (un seul appel API pour N documents) |
 
-### Security Measures
+### Mesures de sécurité
 
-- All API keys are server-side only (Convex actions) — never exposed to clients
-- Prompt injection detection with known pattern matching
-- User input sandboxed within `<user_input>` XML tags
-- Message length capped at 2,000 characters
-- Voice interactions limited to 15/month (free tier)
-- RBAC enforcement via JWT custom claims on all AI endpoints
-
----
-
-## Architecture Notes
-
-### Why Convex Instead of REST + PostgreSQL?
-
-Convex was chosen for its native strengths in this use case:
-
-- **Real-time by default** — WebSocket subscriptions power the dashboard's live updates without additional infrastructure.
-- **End-to-end TypeScript** — Schema, queries, mutations, and actions are all TypeScript. No ORM mapping layer or API contract duplication.
-- **ACID transactions** — Mutations are automatically retried on optimistic concurrency conflicts.
-- **Built-in vector search** — Eliminates the need for a separate vector database for the RAG pipeline.
-- **Serverless scaling** — No infrastructure management for the backend layer.
-
-### Why Clerk Instead of Custom Auth?
-
-- Outsources password hashing, OTP, OAuth, and session management to a battle-tested provider.
-- Custom claims in the JWT enable **zero-latency RBAC** — Convex reads the role from the token in memory without hitting the database.
-- Webhook pipeline (`user.created` → HMAC-SHA256 verification → internal mutation) maintains a shadow user table in Convex for relational integrity.
-
-### Why SQLite + Convex (Dual Database)?
-
-The mobile app needs to function in environments with no connectivity. Traditional cloud-only architectures fail here. The dual-database approach provides:
-
-- **Instant UI** — SQLite serves all reads locally.
-- **Resilience** — The app is fully functional offline.
-- **Eventual consistency** — Background sync with conflict resolution ensures data integrity.
-- **Cost efficiency** — Reduces Convex reads by ~99% during normal mobile usage.
+- Toutes les clés API sont exclusivement côté serveur (actions Convex) — jamais exposées aux clients
+- Détection d'injection de prompts par correspondance de patterns connus
+- Entrée utilisateur isolée dans des balises XML `<user_input>`
+- Longueur des messages limitée à 2 000 caractères
+- Interactions vocales limitées à 15/mois (tier gratuit)
+- Application RBAC via custom claims JWT sur tous les endpoints IA
 
 ---
 
-## Repository Scope
+## Notes d'architecture
 
-> **This repository is a technical documentation and architecture showcase.**
-> It does not contain the full source code of the Makelty platform.
+### Pourquoi Convex au lieu de REST + PostgreSQL ?
 
-### What this repository includes:
-- ✅ Architecture documentation and system design rationale
-- ✅ High-level component diagrams and data flow descriptions
-- ✅ Engineering decision records
-- ✅ Feature inventory and capability overview
-- ✅ AI system architecture documentation
-- ✅ Deployment topology and strategy
+Convex a été choisi pour ses forces natives dans ce cas d'usage :
 
-### What this repository does NOT include:
-- ❌ Application source code
-- ❌ Database schemas or migration files
-- ❌ API keys, secrets, or environment variables
-- ❌ Internal business logic or proprietary algorithms
-- ❌ User data or production configuration
+- **Temps réel par défaut** — Les souscriptions WebSocket alimentent les mises à jour live du dashboard sans infrastructure additionnelle.
+- **TypeScript de bout en bout** — Schéma, requêtes, mutations et actions sont tous en TypeScript. Aucune couche de mapping ORM ni duplication de contrat d'API.
+- **Transactions ACID** — Les mutations sont automatiquement rejouées en cas de conflit de concurrence optimiste.
+- **Recherche vectorielle intégrée** — Élimine le besoin d'une base de données vectorielle séparée pour le pipeline RAG.
+- **Mise à l'échelle serverless** — Aucune gestion d'infrastructure pour la couche backend.
+
+### Pourquoi Clerk au lieu d'une authentification custom ?
+
+- Externalise le hachage de mots de passe, l'OTP, OAuth et la gestion des sessions vers un fournisseur éprouvé.
+- Les custom claims dans le JWT permettent un **RBAC sans latence** — Convex lit le rôle depuis le token en mémoire sans interroger la base de données.
+- Le pipeline webhook (`user.created` → vérification HMAC-SHA256 → mutation interne) maintient une table utilisateur miroir dans Convex pour l'intégrité relationnelle.
+
+### Pourquoi SQLite + Convex (double base de données) ?
+
+L'application mobile doit fonctionner dans des environnements sans connectivité. Les architectures traditionnelles cloud-only échouent ici. L'approche double base de données offre :
+
+- **UI instantanée** — SQLite sert toutes les lectures localement.
+- **Résilience** — L'application est pleinement fonctionnelle hors ligne.
+- **Cohérence à terme** — La synchronisation en arrière-plan avec résolution de conflits assure l'intégrité des données.
+- **Efficacité des coûts** — Réduit les lectures Convex de ~99% lors de l'utilisation mobile normale.
 
 ---
 
-## Screenshots & Visuals
+## Périmètre du dépôt
 
-> 📸 Screenshots of the mobile app and coach dashboard will be added here.
-> This section will be populated with curated UI captures that demonstrate the product experience without exposing internal implementation details.
+> **Ce dépôt est une vitrine de documentation technique et d'architecture.**
+> Il ne contient pas le code source complet de la plateforme Makelty.
+
+### Ce que ce dépôt inclut :
+- ✅ Documentation d'architecture et justification des choix de conception
+- ✅ Diagrammes de composants de haut niveau et descriptions des flux de données
+- ✅ Registre des décisions d'ingénierie
+- ✅ Inventaire des fonctionnalités et aperçu des capacités
+- ✅ Documentation de l'architecture du système IA
+- ✅ Topologie et stratégie de déploiement
+
+### Ce que ce dépôt n'inclut PAS :
+- ❌ Code source des applications
+- ❌ Schémas de base de données ou fichiers de migration
+- ❌ Clés API, secrets ou variables d'environnement
+- ❌ Logique métier interne ou algorithmes propriétaires
+- ❌ Données utilisateur ou configuration de production
+
+---
+
+## Captures d'écran
+
+> 📸 Des captures d'écran de l'application mobile et du dashboard coach seront ajoutées ici.
+> Cette section sera peuplée avec des captures UI sélectionnées démontrant l'expérience produit sans exposer les détails d'implémentation interne.
 
 <!--
-Suggested visuals:
-- Mobile: Onboarding flow, daily tracker, AI chat, meal creation
-- Dashboard: Client CRM view, plan builder, messaging, analytics
-- Landing: Homepage hero, feature sections
+Visuels suggérés :
+- Mobile : Parcours d'onboarding, tracker quotidien, chat IA, création de repas
+- Dashboard : Vue CRM client, constructeur de plans, messagerie, analytique
+- Vitrine : Hero page d'accueil, sections fonctionnalités
 -->
 
 ---
 
-## Next Documentation Files
+## Documentation complémentaire
 
-Detailed breakdowns are available (or planned) in the `/docs` directory:
+Des analyses détaillées sont disponibles (ou prévues) dans le répertoire `/docs` :
 
 | Document | Description |
 |----------|-------------|
-| `docs/architecture.md` | System architecture deep dive — monorepo structure, data flow, service layers |
-| `docs/features.md` | Complete feature inventory by platform and user role |
-| `docs/decisions.md` | Architecture Decision Records (ADRs) — rationale for key technical choices |
-| `docs/production-notes.md` | Production deployment context, infrastructure topology, monitoring |
-| `docs/ai-system.md` | AI pipeline architecture — RAG, embeddings, voice logging, prompt engineering |
-| `docs/offline-engine.md` | Offline-first engine — SQLite MCP, sync queue, conflict resolution, hydration |
+| `docs/architecture.md` | Plongée dans l'architecture système — structure monorepo, flux de données, couches de services |
+| `docs/features.md` | Inventaire complet des fonctionnalités par plateforme et rôle utilisateur |
+| `docs/decisions.md` | Registre des décisions d'architecture (ADR) — justification des choix techniques clés |
+| `docs/production-notes.md` | Contexte de déploiement en production, topologie d'infrastructure, monitoring |
+| `docs/ai-system.md` | Architecture du pipeline IA — RAG, embeddings, logging vocal, prompt engineering |
+| `docs/offline-engine.md` | Moteur offline-first — SQLite MCP, file de sync, résolution de conflits, hydratation |
 
 ---
 
-## Public Links
+## Liens publics
 
-| Resource | URL |
-|----------|-----|
+| Ressource | URL |
+|-----------|-----|
 | **Dashboard** | [dashboard.makelty.tn](https://dashboard.makelty.tn) |
 | **LinkedIn — Oussama Souissi** | [linkedin.com/in/oussama-souissi-289844ba](https://www.linkedin.com/in/oussama-souissi-289844ba) |
 | **LinkedIn — Hamdi Jouini** | [linkedin.com/in/hamdi-jouini-7aa47828b](https://www.linkedin.com/in/hamdi-jouini-7aa47828b) |
@@ -653,26 +657,26 @@ Detailed breakdowns are available (or planned) in the `/docs` directory:
 
 ---
 
-## Team
+## Équipe
 
-| Photo | Name | Role |
-|-------|------|------|
-| <img src="oussama.jpg" width="80" style="border-radius: 50%;"> | [**Oussama Souissi**](https://www.linkedin.com/in/oussama-souissi-289844ba) | CTO & Co-Founder |
-| <img src="hamdi.png" width="80" style="border-radius: 50%;"> | [**Hamdi Jouini**](https://www.linkedin.com/in/hamdi-jouini-7aa47828b/) | CEO & Co-Founder |
-| <img src="ichrak.jpg" width="80" style="border-radius: 50%;"> | [**Ichrak Haddad**](https://www.linkedin.com/in/haddad-ichrak/) | Nutritionist - Dietitian & Co-Founder |
+| Photo | Nom | Rôle |
+|-------|-----|------|
+| <img src="oussama.jpg" width="80" style="border-radius: 50%;"> | [**Oussama Souissi**](https://www.linkedin.com/in/oussama-souissi-289844ba) | CTO & Co-Fondateur |
+| <img src="hamdi.png" width="80" style="border-radius: 50%;"> | [**Hamdi Jouini**](https://www.linkedin.com/in/hamdi-jouini-7aa47828b/) | CEO & Co-Fondateur |
+| <img src="ichrak.jpg" width="80" style="border-radius: 50%;"> | [**Ichrak Haddad**](https://www.linkedin.com/in/haddad-ichrak/) | Nutritionniste - Diététicienne & Co-Fondatrice |
 
 ---
 
-## Disclaimer
+## Avertissement
 
-This repository is a **public architecture case study**. The complete source code of Makelty is proprietary and maintained in a private repository.
+Ce dépôt est une **étude de cas architecturale publique**. Le code source complet de Makelty est propriétaire et maintenu dans un dépôt privé.
 
-No confidential business logic, user data, API credentials, or internal implementation details are exposed in this repository. All technical descriptions represent the system's architecture at a documentation level appropriate for public consumption.
+Aucune logique métier confidentielle, donnée utilisateur, identifiant API ou détail d'implémentation interne n'est exposé dans ce dépôt. Toutes les descriptions techniques représentent l'architecture du système à un niveau de documentation approprié pour une consultation publique.
 
-The mobile application was previously available on the Google Play Store under the name **"Lift & Eat"**. The product and company have since been rebranded to **Makelty**.
+L'application mobile était précédemment disponible sur le Google Play Store sous le nom **« Lift & Eat »**. Le produit et l'entreprise ont depuis été rebrandés en **Makelty**.
 
 ---
 
 <p align="center">
-  <sub>Built with discipline in Tunis, Tunisia 🇹🇳</sub>
+  <sub>Construit avec rigueur à Tunis, Tunisie 🇹🇳</sub>
 </p>
