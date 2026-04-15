@@ -655,11 +655,11 @@ Des analyses détaillées sont disponibles (ou prévues) dans le répertoire `/d
 
 ## Équipe
 
-| Nom | Rôle |
-|-----|------|
-| **Oussama Souissi** | CEO & Co-Fondateur |
-| **Hamdi Jouini** | CTO & Co-Fondateur |
-| **Ichrak Haddad** | Co-Fondatrice |
+| Photo | Nom | Rôle |
+|-------|-----|------|
+| <img src="oussama.jpg" width="80" style="border-radius: 50%;"> | [**Oussama Souissi**](https://www.linkedin.com/in/oussama-souissi-289844ba) | CEO & Co-Fondateur |
+| <img src="hamdi.png" width="80" style="border-radius: 50%;"> | [**Hamdi Jouini**](https://www.linkedin.com/in/hamdi-jouini-7aa47828b/) | CTO & Co-Fondateur |
+| <img src="ichrak.jpg" width="80" style="border-radius: 50%;"> | [**Ichrak Haddad**](https://www.linkedin.com/in/haddad-ichrak/) | Nutritionniste & Co-Fondatrice |
 
 ---
 
